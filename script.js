@@ -5,6 +5,8 @@
  * @param {string} couponCode - 복사할 쿠폰 코드
  */
 function copyCoupon(couponCode) {
+    openRegistration();
+
     // 임시 텍스트 영역 생성
     const tempTextArea = document.createElement('textarea');
     tempTextArea.value = couponCode;
@@ -20,10 +22,6 @@ function copyCoupon(couponCode) {
     // 사용자에게 피드백 제공
     showNotification(`쿠폰 코드 "${couponCode}"가 복사되었습니다!`);
     
-    // 1초 후 자동으로 등록 페이지 열기
-    setTimeout(() => {
-        openRegistration();
-    }, 1000);
 }
 
 /**
@@ -34,7 +32,10 @@ function openRegistration() {
     const registrationUrl = 'https://couponday.co.kr/?pid=p7476115&site=yesfile';
     
     // 새 탭에서 열기
-    window.open(registrationUrl, '_blank');
+    const registrationWindow = window.open(registrationUrl, '_blank');
+    if (!registrationWindow) {
+        window.location.href = registrationUrl;
+    }
 }
 
 /**
